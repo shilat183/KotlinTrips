@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/destinationListFragment"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/destinationListFragment"
+        android:name="com.trips.project.presentation.ui.fragments.DestinationListFragment"
+        android:label="DestinationListFragment" >
+        <action
+            android:id="@+id/action_destinationListFragment_to_destinationPageFragment"
+            app:destination="@id/destinationDetailFragment" />
+        <action
+            android:id="@+id/action_destinationListFragment_to_addDestinationFragment"
+            app:destination="@id/addDestinationFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/myDestinationListFragment"
+        android:name="com.trips.project.presentation.ui.fragments.MyDestinationListFragment"
+        android:label="MyDestinationListFragment" >
+        <action
+            android:id="@+id/action_myDestinationListFragment_to_destinationPageFragment"
+            app:destination="@id/destinationDetailFragment" />
+        <action
+            android:id="@+id/action_myDestinationListFragment_to_addDestinationFragment"
+            app:destination="@id/addDestinationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/destinationDetailFragment"
+        android:name="com.trips.project.presentation.ui.fragments.DestinationDetailFragment"
+        android:label="DestinationPageFragment" />
+
+    <fragment
+        android:id="@+id/addDestinationFragment"
+        android:name="com.trips.project.presentation.ui.fragments.AddDestinationFragment"
+        android:label="AddDestinationFragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.trips.project.presentation.ui.fragments.ProfileEditFragment"
+        android:label="ProfileFragment" />
+
+</navigation>
