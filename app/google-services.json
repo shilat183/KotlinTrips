@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "1020448661198",
-    "project_id": "restaurant-ca60b",
-    "storage_bucket": "restaurant-ca60b.appspot.com"
+    "project_number": "1025106182396",
+    "project_id": "trips-4503b",
+    "storage_bucket": "trips-4503b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1020448661198:android:5a90c640f520bda7f93a9f",
-        "android_client_info": {
-          "package_name": "com.intro.restaurant"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBYpPmPH98SsyDE8g9gXjLv9JdHv-HUkGU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1020448661198:android:54f61eced34d98d2f93a9f",
+        "mobilesdk_app_id": "1:1025106182396:android:f2969e37f1aa756344d779",
         "android_client_info": {
           "package_name": "com.trips.project"
         }
@@ -34,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBYpPmPH98SsyDE8g9gXjLv9JdHv-HUkGU"
+          "current_key": "AIzaSyBcc2S-VWwhrVlkxpXzhw7Jyqz49XlElto"
         }
       ],
       "services": {
