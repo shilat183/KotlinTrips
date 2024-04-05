@@ -38,6 +38,7 @@ class DestinationAdapter(
                 putString("flight_time", destination.flight_time)
                 putString("flight_company", destination.flight_company)
                 putString("trip_duration", destination.trip_duration)
+                putString("trip_review", destination.trip_review)
                 putBoolean("isEdit", isEdit)
             }
             val navController = fragmentActivity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

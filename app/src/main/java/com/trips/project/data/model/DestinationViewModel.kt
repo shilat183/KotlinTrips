@@ -34,7 +34,8 @@ class DestinationViewModel(private val destinationDao: DestinationDao) : ViewMod
                             country_name = document.getString("country_name") ?: "",
                             flight_time =document.getString("flight_time") ?: "",
                             flight_company = document.getString("flight_company") ?: "",
-                            trip_duration = document.getString("trip_duration") ?: ""
+                            trip_duration = document.getString("trip_duration") ?: "",
+                            trip_review = document.getString("trip_review") ?: ""
                         )
                         destinations.add(destination)
                     }
@@ -75,7 +76,8 @@ class DestinationViewModel(private val destinationDao: DestinationDao) : ViewMod
                             country_name = document.getString("country_name") ?: "",
                             flight_time =document.getString("flight_time") ?: "",
                             flight_company = document.getString("flight_company") ?: "",
-                            trip_duration = document.getString("trip_duration") ?: ""
+                            trip_duration = document.getString("trip_duration") ?: "",
+                            trip_review = document.getString("trip_review") ?: ""
                         )
                         destinations.add(destination)
                     }
@@ -116,7 +118,8 @@ class DestinationViewModel(private val destinationDao: DestinationDao) : ViewMod
                             country_name = document.getString("country_name") ?: "",
                             flight_time =document.getString("flight_time") ?: "",
                             flight_company = document.getString("flight_company") ?: "",
-                            trip_duration = document.getString("trip_duration") ?: ""
+                            trip_duration = document.getString("trip_duration") ?: "",
+                            trip_review = document.getString("trip_review") ?: ""
                         )
                         destinations.add(destination)
                     }

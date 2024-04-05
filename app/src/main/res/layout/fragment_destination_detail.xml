@@ -168,6 +168,22 @@
                 android:padding="10dp"
                 android:layout_marginBottom="10dp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trip Review"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tripreview_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Trip Review"
+                android:textSize="16sp"
+                android:background="@drawable/edit_text_bg_rounded"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

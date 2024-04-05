@@ -16,7 +16,9 @@ data class DestinationModel(
         var country_name: String,
         var flight_time: String,
         var flight_company: String,
-        var trip_duration: String
+        var trip_duration: String,
+        var trip_review: String
+
 ) {
 
         constructor(
@@ -31,7 +33,8 @@ data class DestinationModel(
                 flight_time: String,
                 flight_company: String,
                 trip_duration: String ,
+                trip_review: String ,
         ) : this(0, key, userEmail, imageUrl1, imageUrl2, imageUrl3, name,
-                price, country_name, flight_time, flight_company, trip_duration)
+                price, country_name, flight_time, flight_company, trip_duration, trip_review)
 }
 

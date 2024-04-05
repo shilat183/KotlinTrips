@@ -25,14 +25,12 @@ import com.trips.project.data.db.DestinationDao
 import com.trips.project.data.model.DestinationModel
 import com.squareup.picasso.Picasso
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import me.ibrahimsn.lib.SmoothBottomBar
 
 class DestinationDetailFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
@@ -48,6 +46,7 @@ class DestinationDetailFragment : Fragment() {
     private lateinit var flighttime_edittext: EditText
     private lateinit var flightcompany_edittext: EditText
     private lateinit var tripduration_edittext: EditText
+    private lateinit var tripreview_edittext: EditText
     private lateinit var countryname_edittext: EditText
 
     private lateinit var saveButton: Button
@@ -69,12 +68,12 @@ class DestinationDetailFragment : Fragment() {
     }
 
     private fun hideBottomNavigationBar() {
-        val bottomNavigationView = requireActivity().findViewById<SmoothBottomBar>(R.id.bottom_navigation)
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation1)
         bottomNavigationView.visibility = View.GONE
     }
 
     private fun showBottomNavigationBar() {
-        val bottomNavigationView = requireActivity().findViewById<SmoothBottomBar>(R.id.bottom_navigation)
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation1)
         bottomNavigationView.visibility = View.VISIBLE
     }
     private  var imageViewIndex: Int = 0
@@ -170,12 +169,13 @@ class DestinationDetailFragment : Fragment() {
         flighttime_edittext = rootView.findViewById(R.id.flighttime_edittext)
         flightcompany_edittext = rootView.findViewById(R.id.flightcompany_edittext)
         tripduration_edittext = rootView.findViewById(R.id.tripduration_edittext)
+        tripreview_edittext = rootView.findViewById(R.id.tripreview_edittext)
         saveButton = rootView.findViewById(R.id.save_button)
         deleteButton = rootView.findViewById(R.id.delete_button)
 
     }
     private fun selectImage(index: Int) {
-        imageViewIndex = index; 
+        imageViewIndex = index;
         imagePickerLauncher.launch("image/*")
     }
 
@@ -207,6 +207,7 @@ class DestinationDetailFragment : Fragment() {
                 destination["flight_time"] = flighttime_edittext.text.toString().trim()
                 destination["flight_company"] = flightcompany_edittext.text.toString().trim()
                 destination["trip_duration"] = tripduration_edittext.text.toString().trim()
+                destination["trip_review"] = tripreview_edittext.text.toString().trim()
 
                 firestore.collection("Destinations").document(model.key.toString())
                     .update(destination)
@@ -222,6 +223,7 @@ class DestinationDetailFragment : Fragment() {
                             flight_time = flighttime_edittext.text.toString().trim()
                             flight_company = flightcompany_edittext.text.toString().trim()
                             trip_duration = tripduration_edittext.text.toString().trim()
+                            trip_review = tripreview_edittext.text.toString().trim()
                         }
                         progressDialog.dismiss()
                         destinationDao.update(model)
@@ -260,6 +262,7 @@ class DestinationDetailFragment : Fragment() {
                                                                 destination["flight_time"] = flighttime_edittext.text.toString().trim()
                                                                 destination["flight_company"] = flightcompany_edittext.text.toString().trim()
                                                                 destination["trip_duration"] = tripduration_edittext.text.toString().trim()
+                                                                destination["trip_review"] = tripreview_edittext.text.toString().trim()
 
                                                                 firestore.collection("Destinations").document(model.key.toString())
                                                                     .update(destination)
@@ -278,6 +281,7 @@ class DestinationDetailFragment : Fragment() {
                                                                             flight_time = flighttime_edittext.text.toString().trim()
                                                                             flight_company = flightcompany_edittext.text.toString().trim()
                                                                             trip_duration = tripduration_edittext.text.toString().trim()
+                                                                            trip_review = tripreview_edittext.text.toString().trim()
                                                                         }
                                                                         Thread { destinationDao.update(model) }.start()
                                                                         NavHostFragment.findNavController(this).popBackStack()
@@ -323,6 +327,7 @@ class DestinationDetailFragment : Fragment() {
             flighttime_edittext.setText(model.flight_time)
             flightcompany_edittext.setText(model.flight_company)
             tripduration_edittext.setText(model.trip_duration)
+            tripreview_edittext.setText(model.trip_review)
             Picasso.get().load(model.imageUrl1).into(destinationImageView1)
             Picasso.get().load(model.imageUrl2).into(destinationImageView2)
             Picasso.get().load(model.imageUrl3).into(destinationImageView3)
@@ -347,6 +352,7 @@ class DestinationDetailFragment : Fragment() {
             flight_time = bundle.getString("flight_time")?: "",
             flight_company = bundle.getString("flight_company")?: "",
             trip_duration = bundle.getString("trip_duration")?: "",
+            trip_review = bundle.getString("trip_review")?: "",
         )
 
         val isEdit = bundle.getBoolean("isEdit")
@@ -357,6 +363,7 @@ class DestinationDetailFragment : Fragment() {
             flighttime_edittext.isEnabled = false
             flightcompany_edittext.isEnabled = false
             tripduration_edittext.isEnabled = false
+            tripreview_edittext.isEnabled = false
             destinationImageView1.isEnabled = false
             destinationImageView2.isEnabled = false
             destinationImageView3.isEnabled = false

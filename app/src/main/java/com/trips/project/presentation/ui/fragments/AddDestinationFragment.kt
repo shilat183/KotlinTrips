@@ -19,6 +19,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -27,7 +28,6 @@ import com.trips.project.R
 import com.trips.project.data.db.DestinationDatabse
 import com.trips.project.data.model.DestinationModel
 import com.squareup.picasso.Picasso
-import me.ibrahimsn.lib.SmoothBottomBar
 
 class AddDestinationFragment : Fragment() {
     private lateinit var name_edittext: EditText
@@ -38,6 +38,7 @@ class AddDestinationFragment : Fragment() {
     private lateinit var flighttime_edittext: EditText
     private lateinit var flightcompany_edittext: EditText
     private lateinit var tripduration_edittext: EditText
+    private lateinit var tripreview_edittext: EditText
     private lateinit var countryname_edittext: EditText
     private lateinit var add_button: Button
     private lateinit var cancel_button: Button
@@ -125,12 +126,12 @@ class AddDestinationFragment : Fragment() {
     }
 
     private fun hideBottomNavigationBar() {
-        val bottomNavigationView = requireActivity().findViewById<SmoothBottomBar>(R.id.bottom_navigation)
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation1)
         bottomNavigationView.visibility = View.GONE
     }
 
     private fun showBottomNavigationBar() {
-        val bottomNavigationView = requireActivity().findViewById<SmoothBottomBar>(R.id.bottom_navigation)
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation1)
         bottomNavigationView.visibility = View.VISIBLE
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -160,6 +161,7 @@ class AddDestinationFragment : Fragment() {
         flighttime_edittext = rootView.findViewById(R.id.flighttime_edittext)
         flightcompany_edittext = rootView.findViewById(R.id.flightcompany_edittext)
         tripduration_edittext = rootView.findViewById(R.id.tripduration_edittext)
+        tripreview_edittext = rootView.findViewById(R.id.tripreview_edittext)
         add_button = rootView.findViewById(R.id.add_button)
         cancel_button = rootView.findViewById(R.id.cancel_button)
 
@@ -185,7 +187,7 @@ class AddDestinationFragment : Fragment() {
         if (name_edittext.text.toString().isEmpty() || price_edittext.text.toString().isEmpty()
             || selectedImageUri1 == null || selectedImageUri2 == null || selectedImageUri3 == null
             || countryname_edittext.text.toString().isEmpty() || flighttime_edittext.text.toString().isEmpty()
-            || tripduration_edittext.text.toString().isEmpty() || flightcompany_edittext.text.toString().isEmpty()) {
+            || tripduration_edittext.text.toString().isEmpty() || tripreview_edittext.text.toString().isEmpty() || flightcompany_edittext.text.toString().isEmpty()) {
             Toast.makeText(requireContext(), "All fields must be filled", Toast.LENGTH_SHORT).show()
             return
         }
@@ -224,6 +226,7 @@ class AddDestinationFragment : Fragment() {
                                                         destination["flight_time"] = flighttime_edittext.text.toString().trim()
                                                         destination["flight_company"] = flightcompany_edittext.text.toString().trim()
                                                         destination["trip_duration"] = tripduration_edittext.text.toString().trim()
+                                                        destination["tripreview_edittext"] = tripreview_edittext.text.toString().trim()
 
                                                         firestore.collection("Destinations")
                                                             .add(destination)
@@ -242,7 +245,8 @@ class AddDestinationFragment : Fragment() {
                                                                     country_name = countryname_edittext.text.toString().trim(),
                                                                     flight_time = flighttime_edittext.text.toString().trim(),
                                                                     flight_company = flightcompany_edittext.text.toString().trim(),
-                                                                    trip_duration = tripduration_edittext.text.toString().trim()
+                                                                    trip_duration = tripduration_edittext.text.toString().trim(),
+                                                                    trip_review = tripreview_edittext.text.toString().trim()
                                                                 )
                                                                 saveDestinationToLocalDatabase(destination)
                                                                 NavHostFragment.findNavController(this).popBackStack()
