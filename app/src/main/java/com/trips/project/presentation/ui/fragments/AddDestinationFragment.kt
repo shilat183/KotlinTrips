@@ -15,12 +15,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
@@ -35,45 +29,72 @@ import com.trips.project.data.model.DestinationModel
 import com.squareup.picasso.Picasso
 import me.ibrahimsn.lib.SmoothBottomBar
 
-class AddDestinationFragment : Fragment(), OnMapReadyCallback {
-    private lateinit var destinationTitleEditText: EditText
-    private lateinit var destinationDescriptionEditText: EditText
-    private lateinit var destinationImageView: ImageView
-    private lateinit var foodtypeEditText: EditText
-    private lateinit var map_edittext: EditText
-    private lateinit var addDestinationButton: Button
-    private lateinit var cancelButton: Button
-    private lateinit var map: GoogleMap
-    private var selectedImageUri: Uri? = null
-    private var selectedLocation: LatLng? = null
+class AddDestinationFragment : Fragment() {
+    private lateinit var name_edittext: EditText
+    private lateinit var price_edittext: EditText
+    private lateinit var destinationImageView1: ImageView
+    private lateinit var destinationImageView2: ImageView
+    private lateinit var destinationImageView3: ImageView
+    private lateinit var flighttime_edittext: EditText
+    private lateinit var flightcompany_edittext: EditText
+    private lateinit var tripduration_edittext: EditText
+    private lateinit var countryname_edittext: EditText
+    private lateinit var add_button: Button
+    private lateinit var cancel_button: Button
+    private var selectedImageUri1: Uri? = null
+    private var selectedImageUri2: Uri? = null
+    private var selectedImageUri3: Uri? = null
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
     private lateinit var localDb: DestinationDatabse
-    private val imagePickerLauncher = registerForActivityResult(
+    private  var imageViewIndex: Int = 0
+    private val AUTOCOMPLETE_REQUEST_CODE = 1
+    val imagePickerLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { result ->
         if (result != null) {
             try {
-                result?.let {
-                    Picasso.get().load(it).into(destinationImageView, object : com.squareup.picasso.Callback {
-                        override fun onSuccess() {
-                            selectedImageUri = it
-                        }
-                        override fun onError(e: Exception?) {
-                            Toast.makeText(requireContext(), "Failed to load image", Toast.LENGTH_SHORT).show()
-                            e?.printStackTrace()
-                        }
-                    })
+                when (imageViewIndex) {
+                    1 -> {
+                        Picasso.get().load(result).into(destinationImageView1, object : com.squareup.picasso.Callback {
+                            override fun onSuccess() {
+                                selectedImageUri1 = result
+                            }
+                            override fun onError(e: Exception?) {
+                                Toast.makeText(requireContext(), "Failed to load image", Toast.LENGTH_SHORT).show()
+                                e?.printStackTrace()
+                            }
+                        })
+                    }
+                    2 -> {
+                        Picasso.get().load(result).into(destinationImageView2, object : com.squareup.picasso.Callback {
+                            override fun onSuccess() {
+                                selectedImageUri2 = result
+                            }
+                            override fun onError(e: Exception?) {
+                                Toast.makeText(requireContext(), "Failed to load image", Toast.LENGTH_SHORT).show()
+                                e?.printStackTrace()
+                            }
+                        })
+                    }
+                    3 -> {
+                        Picasso.get().load(result).into(destinationImageView3, object : com.squareup.picasso.Callback {
+                            override fun onSuccess() {
+                                selectedImageUri3 = result
+                            }
+                            override fun onError(e: Exception?) {
+                                Toast.makeText(requireContext(), "Failed to load image", Toast.LENGTH_SHORT).show()
+                                e?.printStackTrace()
+                            }
+                        })
+                    }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
-
-    private val AUTOCOMPLETE_REQUEST_CODE = 1
-
     private fun selectAddress() {
         val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS)
         val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
@@ -86,17 +107,8 @@ class AddDestinationFragment : Fragment(), OnMapReadyCallback {
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val place = Autocomplete.getPlaceFromIntent(data!!)
-                val address = place.address
-                map_edittext.setText(address)
-                val latitude = place.latLng?.latitude
-                val longitude = place.latLng?.longitude
-                if (latitude != null && longitude != null) {
-                    selectedLocation = LatLng(latitude, longitude)
-                    map.clear()
-                    map.addMarker(MarkerOptions().position(selectedLocation!!).title(address))
-
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation!!, 15f))
-                }
+                val address = place.name
+                countryname_edittext.setText(address)
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 val status = Autocomplete.getStatusFromIntent(data!!)
             }
@@ -134,103 +146,114 @@ class AddDestinationFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_add_destination, container, false)
         initializeViews(rootView)
-        setupMapFragment()
         setupListeners()
         return rootView
     }
 
     private fun initializeViews(rootView: View) {
-        destinationTitleEditText = rootView.findViewById(R.id.destinationname_textview)
-        destinationDescriptionEditText = rootView.findViewById(R.id.destinationdescription_textview)
-        destinationImageView = rootView.findViewById(R.id.destinationImage)
-        foodtypeEditText = rootView.findViewById(R.id.date_edittext)
-        map_edittext = rootView.findViewById(R.id.map_edittext)
-        addDestinationButton = rootView.findViewById(R.id.add_button)
-        cancelButton = rootView.findViewById(R.id.cancel_button)
+        name_edittext = rootView.findViewById(R.id.name_edittext)
+        price_edittext = rootView.findViewById(R.id.price_edittext)
+        destinationImageView1 = rootView.findViewById(R.id.destinationImageView1)
+        destinationImageView2 = rootView.findViewById(R.id.destinationImageView2)
+        destinationImageView3 = rootView.findViewById(R.id.destinationImageView3)
+        countryname_edittext = rootView.findViewById(R.id.countryname_edittext)
+        flighttime_edittext = rootView.findViewById(R.id.flighttime_edittext)
+        flightcompany_edittext = rootView.findViewById(R.id.flightcompany_edittext)
+        tripduration_edittext = rootView.findViewById(R.id.tripduration_edittext)
+        add_button = rootView.findViewById(R.id.add_button)
+        cancel_button = rootView.findViewById(R.id.cancel_button)
 
     }
 
-    private fun setupMapFragment() {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.mapsFragment) as SupportMapFragment?
-        mapFragment?.getMapAsync(this)
-    }
 
     private fun setupListeners() {
-        destinationImageView.setOnClickListener { selectImage() }
-        addDestinationButton.setOnClickListener { uploadDestinationData() }
-        cancelButton.setOnClickListener { NavHostFragment.findNavController(this).popBackStack() }
-        map_edittext.setOnClickListener { selectAddress() }
+        destinationImageView1.setOnClickListener { selectImage(1) }
+        destinationImageView2.setOnClickListener { selectImage(2) }
+        destinationImageView3.setOnClickListener { selectImage(3) }
+        add_button.setOnClickListener { uploadDestinationData() }
+        cancel_button.setOnClickListener { NavHostFragment.findNavController(this).popBackStack() }
+        countryname_edittext.setOnClickListener { selectAddress() }
     }
 
-    private fun selectImage() {
+    private fun selectImage(index: Int) {
+        imageViewIndex = index;
         imagePickerLauncher.launch("image/*")
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-    }
 
     private fun uploadDestinationData() {
-        val name = destinationTitleEditText.text.toString().trim()
-        val menu = destinationDescriptionEditText.text.toString().trim()
-        val address = map_edittext.text.toString().trim()
-        val foodtype = foodtypeEditText.text.toString().trim()
-
-        if (name.isEmpty() || menu.isEmpty() || selectedImageUri == null || selectedLocation == null || address.isEmpty() || foodtype.isEmpty()) {
-            Toast.makeText(requireContext(), "All fields and location must be filled", Toast.LENGTH_SHORT).show()
+        if (name_edittext.text.toString().isEmpty() || price_edittext.text.toString().isEmpty()
+            || selectedImageUri1 == null || selectedImageUri2 == null || selectedImageUri3 == null
+            || countryname_edittext.text.toString().isEmpty() || flighttime_edittext.text.toString().isEmpty()
+            || tripduration_edittext.text.toString().isEmpty() || flightcompany_edittext.text.toString().isEmpty()) {
+            Toast.makeText(requireContext(), "All fields must be filled", Toast.LENGTH_SHORT).show()
             return
         }
+
         val progressDialog = ProgressDialog(requireContext())
         progressDialog.setMessage("Adding destination...")
         progressDialog.setCancelable(false)
         progressDialog.show()
-        // First, upload the image to Firebase Storage
-        val imageRef: StorageReference = storage.reference.child("destination_images/${name}.jpg")
-        imageRef.putFile(selectedImageUri!!)
+
+        val storage = FirebaseStorage.getInstance()
+        val imageRef1 = storage.reference.child("destination_images/${name_edittext.text.toString()}_1.jpg")
+        val imageRef2 = storage.reference.child("destination_images/${name_edittext.text.toString()}_2.jpg")
+        val imageRef3 = storage.reference.child("destination_images/${name_edittext.text.toString()}_3.jpg")
+
+        imageRef1.putFile(selectedImageUri1!!)
             .addOnSuccessListener { taskSnapshot ->
-                imageRef.downloadUrl
-                    .addOnSuccessListener { uri ->
-                        // Then, save destination data including the image URL to Firestore
-                        val destination = hashMapOf<String, Any>()
-                        destination["name"] = name
-                        destination["menu"] = menu
-                        destination["imageUrl"] = uri.toString()
-                        destination["latitude"] = selectedLocation!!.latitude
-                        destination["longitude"] = selectedLocation!!.longitude
-                        destination["userEmail"] = FirebaseAuth.getInstance().currentUser?.email!!
-                        destination["address"] = address
-                        destination["foodtype"] = foodtype
-                        destination["review"] = ""
-                        destination["favourite"] = false
+                imageRef1.downloadUrl
+                    .addOnSuccessListener { uri1 ->
+                        imageRef2.putFile(selectedImageUri2!!)
+                            .addOnSuccessListener { taskSnapshot ->
+                                imageRef2.downloadUrl
+                                    .addOnSuccessListener { uri2 ->
+                                        imageRef3.putFile(selectedImageUri3!!)
+                                            .addOnSuccessListener { taskSnapshot ->
+                                                imageRef3.downloadUrl
+                                                    .addOnSuccessListener { uri3 ->
 
-                        firestore.collection("Destinations")
-                            .add(destination)
-                            .addOnSuccessListener { documentReference ->
-                                progressDialog.dismiss()
-                                Toast.makeText(requireContext(), "Destination added successfully", Toast.LENGTH_SHORT).show()
-                                NavHostFragment.findNavController(this).popBackStack()
+                                                        val destination = hashMapOf<String, Any>()
+                                                        destination["name"] = name_edittext.text.toString().trim()
+                                                        destination["price"] = price_edittext.text.toString().trim()
+                                                        destination["userEmail"] = FirebaseAuth.getInstance().currentUser?.email!!
+                                                        destination["imageUrl1"] = uri1.toString()
+                                                        destination["imageUrl2"] = uri2.toString()
+                                                        destination["imageUrl3"] = uri3.toString()
+                                                        destination["country_name"] = countryname_edittext.text.toString().trim()
+                                                        destination["flight_time"] = flighttime_edittext.text.toString().trim()
+                                                        destination["flight_company"] = flightcompany_edittext.text.toString().trim()
+                                                        destination["trip_duration"] = tripduration_edittext.text.toString().trim()
 
-                                // Optionally, you can also save this destination data to Room database for offline access
-                                saveDestinationToLocalDatabase(
-                                    DestinationModel(
-                                        documentReference.id,
-                                        FirebaseAuth.getInstance().currentUser?.email!!,
-                                        uri.toString(),
-                                        name,
-                                        menu,
-                                        selectedLocation!!.latitude,
-                                        selectedLocation!!.longitude,
-                                        address,
-                                        foodtype,
-                                        "",
-                                        false
-                                    )
-                                )
-                                NavHostFragment.findNavController(this).popBackStack()
-                            }
-                            .addOnFailureListener { e ->
-                                progressDialog.dismiss()
-                                Toast.makeText(requireContext(), "Failed to add destination", Toast.LENGTH_SHORT).show()
+                                                        firestore.collection("Destinations")
+                                                            .add(destination)
+                                                            .addOnSuccessListener { documentReference ->
+                                                                progressDialog.dismiss()
+                                                                Toast.makeText(requireContext(), "Destination added successfully", Toast.LENGTH_SHORT).show()
+                                                                NavHostFragment.findNavController(this).popBackStack()
+                                                                val destination = DestinationModel(
+                                                                    key = documentReference.id,
+                                                                    userEmail = FirebaseAuth.getInstance().currentUser?.email!!,
+                                                                    imageUrl1 = uri1.toString(),
+                                                                    imageUrl2 = uri2.toString(),
+                                                                    imageUrl3 = uri3.toString(),
+                                                                    name = name_edittext.text.toString().trim(),
+                                                                    price = price_edittext.text.toString().trim(),
+                                                                    country_name = countryname_edittext.text.toString().trim(),
+                                                                    flight_time = flighttime_edittext.text.toString().trim(),
+                                                                    flight_company = flightcompany_edittext.text.toString().trim(),
+                                                                    trip_duration = tripduration_edittext.text.toString().trim()
+                                                                )
+                                                                saveDestinationToLocalDatabase(destination)
+                                                                NavHostFragment.findNavController(this).popBackStack()
+                                                            }
+                                                            .addOnFailureListener { e ->
+                                                                progressDialog.dismiss()
+                                                                Toast.makeText(requireContext(), "Failed to add destination", Toast.LENGTH_SHORT).show()
+                                                            }
+                                                    }
+                                            }
+                                    }
                             }
                     }
             }

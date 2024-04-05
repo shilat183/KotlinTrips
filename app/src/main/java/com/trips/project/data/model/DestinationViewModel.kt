@@ -20,20 +20,21 @@ class DestinationViewModel(private val destinationDao: DestinationDao) : ViewMod
                     val destinations = mutableListOf<DestinationModel>() // List of destinations to be fetched
 
                     for (document in task.result!!) {
-                        val imageUrl = document.getString("imageUrl")
-
+                        val imageUrl1 = document.getString("imageUrl1")
+                        val imageUrl2 = document.getString("imageUrl2")
+                        val imageUrl3 = document.getString("imageUrl3")
                         val destination = DestinationModel(
                             key = document.id,
                             userEmail = document.getString("userEmail") ?: "",
-                            imageUrl = imageUrl ?: "",
-                            menu = document.getString("menu") ?: "",
-                            latitude = document.getDouble("latitude") ?: 0.0,
-                            longitude = document.getDouble("longitude") ?: 0.0,
+                            imageUrl1 = imageUrl1 ?: "",
+                            imageUrl2 = imageUrl2 ?: "",
+                            imageUrl3 = imageUrl3 ?: "",
                             name = document.getString("name") ?: "",
-                            address = document.getString("address") ?: "",
-                            foodtype = document.getString("foodtype") ?: "",
-                            review = document.getString("review") ?: "",
-                            favourite = document.getBoolean("favourite") ?: false
+                            price = document.getString("price") ?: "",
+                            country_name = document.getString("country_name") ?: "",
+                            flight_time =document.getString("flight_time") ?: "",
+                            flight_company = document.getString("flight_company") ?: "",
+                            trip_duration = document.getString("trip_duration") ?: ""
                         )
                         destinations.add(destination)
                     }
@@ -60,20 +61,21 @@ class DestinationViewModel(private val destinationDao: DestinationDao) : ViewMod
                     val destinations = mutableListOf<DestinationModel>() // List of destinations to be fetched
 
                     for (document in task.result!!) {
-                        val imageUrl = document.getString("imageUrl")
-
+                        val imageUrl1 = document.getString("imageUrl1")
+                        val imageUrl2 = document.getString("imageUrl2")
+                        val imageUrl3 = document.getString("imageUrl3")
                         val destination = DestinationModel(
                             key = document.id,
                             userEmail = document.getString("userEmail") ?: "",
-                            imageUrl = imageUrl ?: "",
-                            menu = document.getString("menu") ?: "",
-                            latitude = document.getDouble("latitude") ?: 0.0,
-                            longitude = document.getDouble("longitude") ?: 0.0,
+                            imageUrl1 = imageUrl1 ?: "",
+                            imageUrl2 = imageUrl2 ?: "",
+                            imageUrl3 = imageUrl3 ?: "",
                             name = document.getString("name") ?: "",
-                            address = document.getString("address") ?: "",
-                            foodtype = document.getString("foodtype") ?: "",
-                            review = document.getString("review") ?: "",
-                            favourite = document.getBoolean("favourite") ?: false
+                            price = document.getString("price") ?: "",
+                            country_name = document.getString("country_name") ?: "",
+                            flight_time =document.getString("flight_time") ?: "",
+                            flight_company = document.getString("flight_company") ?: "",
+                            trip_duration = document.getString("trip_duration") ?: ""
                         )
                         destinations.add(destination)
                     }
@@ -100,20 +102,21 @@ class DestinationViewModel(private val destinationDao: DestinationDao) : ViewMod
                     val destinations = mutableListOf<DestinationModel>() // List of destinations to be fetched
 
                     for (document in task.result!!) {
-                        val imageName = document.getString("imageUrl")
-
+                        val imageUrl1 = document.getString("imageUrl1")
+                        val imageUrl2 = document.getString("imageUrl2")
+                        val imageUrl3 = document.getString("imageUrl3")
                         val destination = DestinationModel(
                             key = document.id,
                             userEmail = document.getString("userEmail") ?: "",
-                            imageUrl = imageName ?: "",
-                            menu = document.getString("menu") ?: "",
-                            latitude = document.getDouble("latitude") ?: 0.0,
-                            longitude = document.getDouble("longitude") ?: 0.0,
+                            imageUrl1 = imageUrl1 ?: "",
+                            imageUrl2 = imageUrl2 ?: "",
+                            imageUrl3 = imageUrl3 ?: "",
                             name = document.getString("name") ?: "",
-                            address = document.getString("address") ?: "",
-                            foodtype = document.getString("foodtype") ?: "",
-                            review = document.getString("review") ?: "",
-                            favourite = document.getBoolean("favourite") ?: true
+                            price = document.getString("price") ?: "",
+                            country_name = document.getString("country_name") ?: "",
+                            flight_time =document.getString("flight_time") ?: "",
+                            flight_company = document.getString("flight_company") ?: "",
+                            trip_duration = document.getString("trip_duration") ?: ""
                         )
                         destinations.add(destination)
                     }

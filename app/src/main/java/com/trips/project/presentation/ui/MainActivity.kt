@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
                 setContentView(R.layout.activity_main)
-                Places.initialize(applicationContext, "AIzaSyCT1LawqV43MkqtMqwUuKVSArVpRNdQ5aA")
+                Places.initialize(applicationContext, "AIzaSyBxN6oBonBPwykwxYnz2d9pXRhk4Ey_0nI")
                 val bottomNavigationView1: BottomNavigationView
                 val menu: Menu
                 bottomNavigationView1 = findViewById(R.id.bottom_navigation1)
@@ -24,5 +24,4 @@ class MainActivity : AppCompatActivity() {
                 val navController = findNavController(this, R.id.nav_host_fragment)
                 bottomNavigationView.setupWithNavController(menu , navController)
         }
-
 }

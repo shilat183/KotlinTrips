@@ -23,19 +23,21 @@ class DestinationAdapter(
 
     override fun onBindViewHolder(holder: DestinationViewHolder, position: Int) {
         val destination = destinations[position]
-        Picasso.get().load(destination.imageUrl).into(holder.destinationImage)
+        Picasso.get().load(destination.imageUrl1).into(holder.destinationImage)
         holder.destinationName.text = destination.name
         holder.itemView.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("destinationId", destination.key)
                 putString("name", destination.name)
                 putString("userEmail", destination.userEmail)
-                putString("imageUrl", destination.imageUrl)
-                putString("menu", destination.menu)
-                putString("address", destination.address)
-                putString("foodtype", destination.foodtype)
-                putString("review", destination.review)
-                putBoolean("favourite", destination.favourite)
+                putString("imageUrl1", destination.imageUrl1)
+                putString("imageUrl2", destination.imageUrl2)
+                putString("imageUrl3", destination.imageUrl3)
+                putString("price", destination.price)
+                putString("country_name", destination.country_name)
+                putString("flight_time", destination.flight_time)
+                putString("flight_company", destination.flight_company)
+                putString("trip_duration", destination.trip_duration)
                 putBoolean("isEdit", isEdit)
             }
             val navController = fragmentActivity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

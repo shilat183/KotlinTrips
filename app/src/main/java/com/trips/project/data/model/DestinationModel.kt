@@ -8,29 +8,30 @@ data class DestinationModel(
         @PrimaryKey(autoGenerate = true) var id: Int = 0,
         var key: String? = null,
         var userEmail: String,
-        var imageUrl: String,
+        var imageUrl1: String,
+        var imageUrl2: String,
+        var imageUrl3: String,
         var name: String,
-        var menu: String,
-        var latitude: Double,
-        var longitude: Double,
-        var address: String,
-        var foodtype: String,
-        var review: String? = null,
-        var favourite: Boolean = false
+        var price: String,
+        var country_name: String,
+        var flight_time: String,
+        var flight_company: String,
+        var trip_duration: String
 ) {
 
         constructor(
                 key: String,
                 userEmail: String,
-                imageUrl: String,
+                imageUrl1: String,
+                imageUrl2: String,
+                imageUrl3: String,
                 name: String,
-                menu: String,
-                latitude: Double,
-                longitude: Double,
-                address: String,
-                foodtype: String,
-                review: String? = null,
-                favourite: Boolean = false
-        ) : this(0, key, userEmail, imageUrl,name,  menu, latitude, longitude, address, foodtype, review, favourite)
+                price: String,
+                country_name: String,
+                flight_time: String,
+                flight_company: String,
+                trip_duration: String ,
+        ) : this(0, key, userEmail, imageUrl1, imageUrl2, imageUrl3, name,
+                price, country_name, flight_time, flight_company, trip_duration)
 }
 

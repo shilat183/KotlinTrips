@@ -6,165 +6,168 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:padding="10dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="20dp"
-        android:background="@drawable/bg_rounded_cardview"
-        android:elevation="8dp">
+        android:layout_marginBottom="6dp"
+        app:cardBackgroundColor="#F3F2F4"
+        app:cardCornerRadius="15dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/destinationImageView1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/logo" />
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                app:dividerColor="@color/background"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/destinationImageView2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="100dp"
+                    android:src="@drawable/logo" />
+
+                <ImageView
+                    android:id="@+id/destinationImageView3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="100dp"
+                    android:src="@drawable/logo" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="15dp">
 
         <LinearLayout
+            android:id="@+id/destinationDescriptionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
 
-            <ImageView
-                android:id="@+id/destinationImage"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/logo"
-                android:adjustViewBounds="true"
-                android:layout_marginBottom="16dp"/>
-            <ImageButton
-                android:id="@+id/favorite_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/heart"
-                android:scaleType="centerInside"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="end"/>
+            android:padding="16dp">
 
             <TextView
-                android:id="@+id/name_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Destination Name"
-                android:textColor="@color/black"
-                android:paddingBottom="8dp"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/name_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Name"
-                android:textColor="@color/black"
+                android:hint="Enter Destination Name"
+                android:textSize="16sp"
                 android:background="@drawable/edit_text_bg_rounded"
-                android:padding="12dp"
-                android:layout_marginBottom="8dp"/>
+                android:padding="10dp"
+                android:layout_marginBottom="10dp" />
+
+
 
             <TextView
-                android:id="@+id/description_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Menu"
-                android:textColor="@color/black"
-                android:paddingBottom="8dp"/>
+                android:text="Select Country"
+                android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/description_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Destination Menu"
-                android:lines="3"
-                android:textColor="@color/black"
-                android:textAlignment="textStart"
-                android:background="@drawable/edit_text_bg_rounded"
-                android:padding="12dp"
-                android:layout_marginBottom="8dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-
-                <TextView
-                    android:id="@+id/date_label"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Food type"
-                    android:textColor="@color/black"
-                    android:paddingBottom="8dp"/>
-
-                <EditText
-                    android:id="@+id/date_edittext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Food type"
-                    android:textColor="@color/black"
-                    android:background="@drawable/edit_text_bg_rounded"
-                    android:padding="12dp"
-                    android:layout_marginEnd="4dp"/>
-
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/map_label"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Select Address"
-                android:textColor="@color/black"
-                android:paddingBottom="8dp"/>
-
-            <EditText
-                android:id="@+id/map_edittext"
+                android:id="@+id/countryname_edittext"
                 android:editable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Select Address"
-                android:textColor="@color/black"
+                android:hint="Select Country"
+                android:textSize="16sp"
                 android:background="@drawable/edit_text_bg_rounded"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:padding="12dp"
-                android:drawablePadding="8dp"
-                android:layout_marginBottom="16dp"/>
+                android:padding="10dp"
+                android:layout_marginBottom="16dp" />
 
 
-
-
-            <fragment
-                android:id="@+id/mapsFragment"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"  />
-            <TextView android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Reviews:"
-                android:textColor="@color/black"
-                android:paddingBottom="8dp"/>
             <TextView
-                android:id="@+id/review_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Review"
-                android:textColor="@color/black"
-                android:paddingBottom="8dp"/>
-            <TextView android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="My Review:"
-                android:textColor="@color/black"
-                android:paddingBottom="8dp"/>
+                android:text="Price"
+                android:textSize="16sp" />
+
             <EditText
-                android:id="@+id/review_edittext"
+                android:id="@+id/price_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your review here"
-                android:textColor="@color/black"
+                android:hint="Enter Price"
+                android:textSize="16sp"
                 android:background="@drawable/edit_text_bg_rounded"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp"/>
+                android:padding="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Flight Time"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/flighttime_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Flight Time"
+                android:textSize="16sp"
+                android:background="@drawable/edit_text_bg_rounded"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Flight Company"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/flightcompany_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Flight Company"
+                android:textSize="16sp"
+                android:background="@drawable/edit_text_bg_rounded"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trip Duration"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tripduration_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Trip Duration"
+                android:textSize="16sp"
+                android:background="@drawable/edit_text_bg_rounded"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
