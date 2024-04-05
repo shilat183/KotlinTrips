@@ -226,7 +226,7 @@ class AddDestinationFragment : Fragment() {
                                                         destination["flight_time"] = flighttime_edittext.text.toString().trim()
                                                         destination["flight_company"] = flightcompany_edittext.text.toString().trim()
                                                         destination["trip_duration"] = tripduration_edittext.text.toString().trim()
-                                                        destination["tripreview_edittext"] = tripreview_edittext.text.toString().trim()
+                                                        destination["trip_review"] = tripreview_edittext.text.toString().trim()
 
                                                         firestore.collection("Destinations")
                                                             .add(destination)
